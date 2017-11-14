@@ -4,13 +4,19 @@ knitr::opts_chunk$set(
   message = FALSE, warning = FALSE, error = FALSE, tidy = TRUE, results = "hide"
 )
 
-## ----sources_and_outputs-------------------------------------------------
-library(memery)
+## ----sources_and_outputs0, echo=FALSE------------------------------------
+library(memery) # run this block in case next block would error on URL timeout
 loc <- system.file("philosoraptor.jpg", package = "memery")
-web <- "https://imgflip.com/s/meme/Philosoraptor.jpg"
 lab <- c("What to call my R package?", "Perhaps...")
 meme(loc, lab[1], "meme1.jpg")
-meme(web, lab[1], "meme1.png")
+
+## ----sources_and_outputs1, eval=FALSE------------------------------------
+#  library(memery)
+#  loc <- system.file("philosoraptor.jpg", package = "memery")
+#  web <- "https://imgflip.com/s/meme/Philosoraptor.jpg"
+#  lab <- c("What to call my R package?", "Perhaps...")
+#  meme(loc, lab[1], "meme1.jpg")
+#  meme(web, lab[1], "meme1.png")
 
 ## ----two_labels----------------------------------------------------------
 meme(loc, lab, "meme2.jpg")
@@ -23,11 +29,10 @@ clrs <- c("orange", "white")
 meme(loc, lab, "meme3.jpg", col = clrs[1], shadow = clrs[2])
 
 ## ----inset1--------------------------------------------------------------
-library(dplyr)
 library(ggplot2)
-d <- data_frame(x = seq(0, 2*pi , length.out = 50), y = sin(x))
-panels <- paste("Philosoraptor's plot", c("A", "B"))
-d <- bind_rows(d, d) %>% mutate(grp = rep(panels, each = 50))
+x <- seq(0, 2*pi , length.out = 50)
+panels <- rep(paste("Philosoraptor's plot", c("A", "B")), each = 50)
+d <- data.frame(x = x, y = sin(x), grp = panels)
 txt <- c("Philosoraptor's plots", "I like to make plots", "Figure 1. (A) shows a plot and (B) shows another plot.")
 p <- ggplot(d, aes(x, y)) + geom_line(colour = "cornflowerblue", size = 2) +
   geom_point(colour = "orange", size = 4) + facet_wrap(~grp) +
@@ -39,7 +44,7 @@ meme(loc, lab, "meme4a.jpg", inset = p)
 set.seed(1)
 
 ## ----inset1b-------------------------------------------------------------
-p2 <- ggplot(data_frame(x = rnorm(10000)), aes(x)) +
+p2 <- ggplot(data.frame(x = rnorm(10000)), aes(x)) +
   geom_density(adjust = 2, colour = "white", size = 1)
 pos <- list(w = 0.2, h = 0.2, x = 0.125, y = 0.125)
 meme(loc, lab[1], "meme4b.jpg", inset = p2, inset_bg = list(fill = "dodgerblue", col = "black"), inset_pos = pos, ggtheme = theme_void())
