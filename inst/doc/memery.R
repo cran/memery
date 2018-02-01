@@ -5,13 +5,16 @@ knitr::opts_chunk$set(
 )
 
 ## ----sources_and_outputs0, echo=FALSE------------------------------------
-library(memery) # run this block in case next block would error on URL timeout
+library(memery) # run this block in case later block would error on URL timeout
 loc <- system.file("philosoraptor.jpg", package = "memery")
 lab <- c("What to call my R package?", "Perhaps...")
 meme(loc, lab[1], "meme1.jpg")
 
-## ----sources_and_outputs1, eval=FALSE------------------------------------
+## ----app, eval=FALSE-----------------------------------------------------
 #  library(memery)
+#  memeApp()
+
+## ----sources_and_outputs1, eval=FALSE------------------------------------
 #  loc <- system.file("philosoraptor.jpg", package = "memery")
 #  web <- "https://imgflip.com/s/meme/Philosoraptor.jpg"
 #  lab <- c("What to call my R package?", "Perhaps...")
@@ -57,7 +60,7 @@ meme(loc, lab[1], "meme4b2.jpg", inset = p2, inset_bg = list(fill = "firebrick1"
 meme(loc, lab[1], "meme4c.jpg", size = 2, inset = p, mult = 2)
 
 ## ----inset3--------------------------------------------------------------
-vp_bg <- list(fill = "#FF00FF50", col = "#FFFFFF75")
+vp_bg <- list(fill = "#FF00FF50", col = "#FFFFFF80")
 meme(loc, lab[1], "meme4d.jpg", size = 2, inset = p, inset_bg = vp_bg, mult = 2)
 
 ## ----inset3_r, eval=FALSE------------------------------------------------
@@ -67,4 +70,15 @@ meme(loc, lab[1], "meme4d.jpg", size = 2, inset = p, inset_bg = vp_bg, mult = 2)
 lab[2:3] <- c("Perhaps raptr... NO!!!", "Pfft. Figures.")
 lab_pos <- list(w = rep(0.9, 3), h = rep(0.3, 3), x = rep(0.5, 3), y = c(0.95, 0.85, 0.3))
 meme(loc, lab, "meme5.jpg", size = c(1.25, 2.5, 1), family = c("serif", "Impact", "Impact"), col = clrs, shadow = rev(clrs), label_pos = lab_pos, inset = p, mult = 2)
+
+## ----gifs, eval=FALSE----------------------------------------------------
+#  p <- ggplot(d, aes(x, y)) + geom_line(colour = "white", size = 2) +
+#    geom_point(colour = "orange", size = 1) + facet_wrap(~grp) +
+#    labs(title = "The wiggles", subtitle = "Plots for cats",
+#         caption = "Figure 1. Gimme sine waves.")
+#  lab <- c("R plots for cats", "Sine wave sine wave...")
+#  pos <- list(w = rep(0.9, 2), h = rep(0.3, 2), x = rep(0.5, 2), y = c(0.9, 0.75))
+#  img <- "http://forgifs.com/gallery/d/228621-4/Cat-wiggles.gif"
+#  meme_gif(img, lab, "sine.gif", size = c(1.5, 0.75), label_pos = pos,
+#           inset = p, inset_bg = list(fill = "#00BFFF80"), fps = 20)
 

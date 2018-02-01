@@ -1,0 +1,12 @@
+name: memery-test
+title: memery-test
+username:
+account: leonawicz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 235941
+bundleId: 1079363
+url: https://leonawicz.shinyapps.io/memery-test/
+when: 1510854957.92031
+asMultiple: FALSE
+asStatic: FALSE
