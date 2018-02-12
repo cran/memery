@@ -72,6 +72,7 @@ lab_pos <- list(w = rep(0.9, 3), h = rep(0.3, 3), x = rep(0.5, 3), y = c(0.95, 0
 meme(loc, lab, "meme5.jpg", size = c(1.25, 2.5, 1), family = c("serif", "Impact", "Impact"), col = clrs, shadow = rev(clrs), label_pos = lab_pos, inset = p, mult = 2)
 
 ## ----gifs, eval=FALSE----------------------------------------------------
+#  d$grp <- gsub("Philosoraptor's", "Cat's", d$grp)
 #  p <- ggplot(d, aes(x, y)) + geom_line(colour = "white", size = 2) +
 #    geom_point(colour = "orange", size = 1) + facet_wrap(~grp) +
 #    labs(title = "The wiggles", subtitle = "Plots for cats",
