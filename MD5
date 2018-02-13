@@ -1,7 +1,7 @@
-42a6cd10702919761c7b98b3345ff2f9 *DESCRIPTION
+65848c95c1987bd1669094967b0b6811 *DESCRIPTION
 410a81fef0b0ebc75c4922497776733d *LICENSE
 79d9d44114768eafc950f3a5fc72a852 *NAMESPACE
-1a4bc2d371ba572381a3f6f4c19150a2 *NEWS.md
+82b3a7a5a07eb41221617642086c7c95 *NEWS.md
 44625cd4125892e63ad79e70c9464f7a *R/inset.R
 55056508b6805a2a043154efb1dc2a64 *R/meme.R
 08378399a11212ec6ad02aaa56fea05c *R/memery.R
@@ -23,5 +23,5 @@ d6565d82a9890a20474ea2c154305ea1 *man/memetheme.Rd
 84ca456b2d13a53d98a76126f201ae68 *tests/testthat.R
 ad5143aa69144f5675fbb96368ef8087 *tests/testthat/test-inset.R
 e0611e32a15f226dfdd80d77ed071912 *tests/testthat/test-lintr.R
-2815715b3619fd146a45d076d36a4adf *tests/testthat/test-meme.R
+f8ae72bfdceaf1457cbf38a465818fa1 *tests/testthat/test-meme.R
 4687f8e2f25de0b7e2c31830fea2841f *vignettes/memery.Rmd
