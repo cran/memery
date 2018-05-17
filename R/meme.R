@@ -103,8 +103,9 @@
 #' img <- system.file("philosoraptor.jpg", package = "memery")
 #' lab <- c("Title meme text", "Subtitle text")
 #'
-#' \donttest{
+#' \dontrun{
 #'
+#' # Not run due to file size
 #' # basic meme
 #' meme(img, lab[1:2], "meme_basic.jpg")
 #' # data analyst's meme
@@ -123,8 +124,9 @@
 #' meme(img, lab, "meme_data2.jpg", size = c(2, 1.5, 1), family = fam, col = clrs1,
 #'   shadow = clrs2, label_pos = pos, inset = p, inset_bg = vp_bg, mult = 2)
 #'
-#' \donttest{
+#' \dontrun{
 #'
+#' # Not run due to file size and software requirements
 #' # GIF meme. Requires Imagemagick and magick package. See details.
 #' p <- ggplot(d, aes(x, y)) + geom_line(colour = "white", size = 2) +
 #'   geom_point(colour = "orange", size = 1) + facet_wrap(~grp) +
@@ -267,7 +269,39 @@ meme_gif <- function(img, label, file, size = 1, family = "Impact", col = "white
   frames <- magick::image_read(tmpfiles)
   file.remove(tmpfiles)
   x <- magick::image_animate(frames, fps = fps)
+  #x <- .override_image_animate(frames, fps = fps) # nolint
   magick::image_write(x, file)
   cat("\nDone.\n")
   invisible()
 }
+
+# nolint start
+
+# .override_image_animate <- function(image, fps = 10, loop = 0, dispose = c("background", "previous", "none")){
+#   .override_assert_image(image)
+#   stopifnot(is.numeric(fps))
+#   stopifnot(is.numeric(loop))
+#   delay <- as.integer(100/fps)
+#   dispose <- match.arg(dispose)
+#   .override_magick_image_animate(image, delay, as.integer(loop), dispose)
+# }
+#
+# .override_assert_image <- function(image){
+#   if (!inherits(image, "magick-image"))
+#     stop("The 'image' argument is not a magick image object.",
+#          call. = FALSE)
+#   if (.override_magick_image_dead(image))
+#     stop("Image pointer is dead. You cannot save image objects between R sessions.",
+#          call. = FALSE)
+# }
+#
+# .override_magick_image_dead <- function(image){
+#   .Call("_magick_magick_image_dead", PACKAGE = "magick", image)
+# }
+#
+# .override_magick_image_animate <- function(input, delay, iter, method){
+#   .Call("_magick_magick_image_animate", PACKAGE = "magick",
+#         input, delay, iter, method)
+# }
+
+# nolint end
