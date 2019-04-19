@@ -57,10 +57,10 @@
 #' \code{magick} is recommended.
 #'
 #' @section Reading and writing gifs:
-#' Reading and writing gifs requires the \code{magick} package, which in turn requires that you have ImageMagick installed on your system.
+#' Reading and writing gifs requires the \code{magick} package.
 #' Since this is not required for any other part of \code{memery} and it represents a minor use case, the package does not have these dependencies.
 #' \code{magick} is listed as a suggested package for memery; it is not imported as a dependency.
-#' \code{meme_gif} is an optional extra function. In order to use it, install ImageMagick on your system and install the \code{magick} package.
+#' \code{meme_gif} is an optional extra function. In order to use it, install the \code{magick} package.
 #'
 #' See the example below if your system meets these requirements.
 #' As with jpg or png image inputs, if additional control is required for making custom adjustments to gif image frames,
@@ -81,6 +81,7 @@
 #' @param inset_pos named list of position elements for the \code{inset} inset plot: \code{w}, \code{h}, \code{x} and \code{y}.
 #' @param width numeric, width of overall meme plot in pixels. If missing, taken from \code{img} size.
 #' @param height numeric, height of overall meme plot in pixels. If missing, taken from \code{img} size.
+#' @param bg character, background color for graphics device.
 #' @param mult numeric, a multiplier. Used to adjust width and height. See details.
 #' @param fps frames per second, only applicable to \code{meme_gif}. See details.
 #' @param frame integer, frame numbers to include. The default \code{frame = 0} retains all frames. Only applicable to \code{meme_gif}. See details.
@@ -127,7 +128,7 @@
 #' \dontrun{
 #'
 #' # Not run due to file size and software requirements
-#' # GIF meme. Requires Imagemagick and magick package. See details.
+#' # GIF meme. Requires magick package.
 #' p <- ggplot(d, aes(x, y)) + geom_line(colour = "white", size = 2) +
 #'   geom_point(colour = "orange", size = 1) + facet_wrap(~grp) +
 #'   labs(title = "The wiggles", subtitle = "Plots for cats",
@@ -145,7 +146,7 @@ NULL
 meme <- function(img, label, file, size = 1, family = "Impact", col = "white", shadow = "black",
                  label_pos = text_position(length(label)),
                  inset = NULL, ggtheme = memetheme(), inset_bg = inset_background(),
-                 inset_pos = inset_position(), width, height, mult = 1){
+                 inset_pos = inset_position(), width, height, bg = "transparent", mult = 1){
   family[!family %in% sysfonts::font_families()] <- "serif"
   n <- length(label)
   if(!all(sapply(label_pos, length) == n))
@@ -184,8 +185,8 @@ meme <- function(img, label, file, size = 1, family = "Impact", col = "white", s
   p0 <- ggplot2::ggplot(data.frame(x = c(0, 1), y = c(0, 1)), ggplot2::aes_string("x", "y")) +
     ggplot2::annotation_custom(g0, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) +
     cowplot::theme_nothing()
-  if(ext2 == "png") Cairo::CairoPNG(file, width = width, height = height)
-  if(ext2 == "jpg") grDevices::jpeg(file, width = width, height = height, type = "cairo")
+  if(ext2 == "png") Cairo::CairoPNG(file, width = width, height = height, bg = bg)
+  if(ext2 == "jpg") grDevices::jpeg(file, width = width, height = height, bg = bg, type = "cairo")
   showtext::showtext_begin()
   grid::grid.newpage()
   vp_back <- grid::viewport(width = 1, height = 1, x = 0.5, y = 0.5)
@@ -225,7 +226,7 @@ meme <- function(img, label, file, size = 1, family = "Impact", col = "white", s
 meme_gif <- function(img, label, file, size = 1, family = "Impact", col = "white", shadow = "black",
                      label_pos = text_position(length(label)),
                      inset = NULL, ggtheme = memetheme(), inset_bg = inset_background(),
-                     inset_pos = inset_position(), width, height, mult = 1,
+                     inset_pos = inset_position(), width, height, bg = "transparent", mult = 1,
                      fps = 10, frame = 0, ...){
   if(!.check_for_magick()) return(message(.no_magick))
   is_gif <- utils::tail(strsplit(img, "\\.")[[1]], 1) == "gif"
@@ -254,13 +255,13 @@ meme_gif <- function(img, label, file, size = 1, family = "Impact", col = "white
              inset, ggtheme, inset_bg, inset_pos, mult = mult)
       } else if(no_width){
         meme(img0, label, file0, size, family, col, shadow, label_pos,
-             inset, ggtheme, inset_bg, inset_pos, height = height, mult = mult)
+             inset, ggtheme, inset_bg, inset_pos, height = height, bg = bg, mult = mult)
       } else if(no_height){
         meme(img0, label, file0, size, family, col, shadow, label_pos,
              inset, ggtheme, inset_bg, inset_pos, width = width, mult = mult)
       } else {
         meme(img0, label, file0, size, family, col, shadow, label_pos,
-             inset, ggtheme, inset_bg, inset_pos, width = width, height = height, mult = mult)
+             inset, ggtheme, inset_bg, inset_pos, width = width, height = height, bg = bg, mult = mult)
       }
     })
   })
@@ -268,40 +269,7 @@ meme_gif <- function(img, label, file, size = 1, family = "Impact", col = "white
   cat("\nSaving meme...")
   frames <- magick::image_read(tmpfiles)
   file.remove(tmpfiles)
-  x <- magick::image_animate(frames, fps = fps)
-  #x <- .override_image_animate(frames, fps = fps) # nolint
-  magick::image_write(x, file)
+  magick::image_write_gif(frames, file, delay = round(1/fps, 2))
   cat("\nDone.\n")
   invisible()
 }
-
-# nolint start
-
-# .override_image_animate <- function(image, fps = 10, loop = 0, dispose = c("background", "previous", "none")){
-#   .override_assert_image(image)
-#   stopifnot(is.numeric(fps))
-#   stopifnot(is.numeric(loop))
-#   delay <- as.integer(100/fps)
-#   dispose <- match.arg(dispose)
-#   .override_magick_image_animate(image, delay, as.integer(loop), dispose)
-# }
-#
-# .override_assert_image <- function(image){
-#   if (!inherits(image, "magick-image"))
-#     stop("The 'image' argument is not a magick image object.",
-#          call. = FALSE)
-#   if (.override_magick_image_dead(image))
-#     stop("Image pointer is dead. You cannot save image objects between R sessions.",
-#          call. = FALSE)
-# }
-#
-# .override_magick_image_dead <- function(image){
-#   .Call("_magick_magick_image_dead", PACKAGE = "magick", image)
-# }
-#
-# .override_magick_image_animate <- function(input, delay, iter, method){
-#   .Call("_magick_magick_image_animate", PACKAGE = "magick",
-#         input, delay, iter, method)
-# }
-
-# nolint end
