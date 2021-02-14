@@ -1,5 +1,5 @@
 Package: memery
-Version: 0.5.4
+Version: 0.5.6
 Title: Internet Memes for Data Analysts
 Description: Generates internet memes that optionally include a superimposed inset plot and other atypical features, 
     combining the visual impact of an attention-grabbing meme with graphic results of data analysis.
@@ -27,14 +27,13 @@ ByteCompile: true
 URL: https://github.com/leonawicz/memery
 BugReports: https://github.com/leonawicz/memery/issues
 Suggests: testthat, knitr, rmarkdown, covr, magick, gifski
-VignetteBuilder: knitr
 Depends: showtext
 Imports: sysfonts, grid, png, jpeg, Cairo, ggplot2, cowplot, magrittr,
         purrr, shiny, shinycssloaders, shinyBS, colourpicker
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-01-29 15:08:51 UTC; Matt
+Packaged: 2021-02-12 19:58:02 UTC; Matt
 Author: Matthew Leonawicz [aut, cre]
 Maintainer: Matthew Leonawicz <mfleonawicz@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-01-29 15:50:03 UTC
+Date/Publication: 2021-02-14 23:50:02 UTC

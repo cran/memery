@@ -1,3 +1,11 @@
+# memery 0.5.6
+
+* More fixes for CRAN submission after package was archived.
+
+# memery 0.5.5
+
+* More changes to address issues that only show up on CRAN but not on CRAN Win Builder.
+
 # memery 0.5.4
 
 * Set unit tests to not run on CRAN.
