@@ -1,12 +1,16 @@
 #' The ca(R) Shiny promotional meme
 #'
-#' Recreate the ca(R) Shiny promotional meme using different plots, frame rate or output size.
+#' Recreate the ca(R) Shiny promotional meme using different plots, frame rate
+#' or output size.
 #'
-#' This function offers limited control over customization; it is intended as a canned example.
-#' For additional customization, use this function's source code in an R script where you can easily alter other values.
+#' This function offers limited control over customization; it is intended as a
+#' canned example. For additional customization, use this function's source code
+#' in an R script where you can easily alter other values.
 #'
-#' After writing the first layer of output to \code{file}, \code{file} is recursively read and written again
-#' two more times in order to add all layers to the animated gif, since the underlying \code{meme} function does not accept vectorized inset plots.
+#' After writing the first layer of output to `file`, `file` is recursively read
+#' and written again two more times in order to add all layers to the animated
+#' gif, since the underlying `meme()` function does not accept vectorized inset
+#' plots.
 #'
 #' The Shiny logo is by RStudio.
 #'
@@ -14,8 +18,10 @@
 #' @param p1 ggplot object for top half of (ca)R Shiny meme.
 #' @param p2 ggplot object for bottom half of (ca)R Shiny meme.
 #' @param fps integer, frames per second.
-#' @param test_frame logical, keep only the first frame. Ideal for saving time during testing.
-#' @param mult numeric, factor by which to multiply the output meme dimensions. Use conservatively.
+#' @param test_frame logical, keep only the first frame. Ideal for saving time
+#' during testing.
+#' @param mult numeric, factor by which to multiply the output meme dimensions.
+#' Use conservatively.
 #'
 #' @return nothing is returned, but a file is saved to disk.
 #' @export
@@ -25,7 +31,7 @@
 #' file <- "memery-car-shiny.gif" # outfile
 #' set.seed(1)
 #' p1 <- ggplot(data.frame(x = rbeta(100000, 10, 3)), aes(x)) +
-#'   geom_histogram(colour = "white", fill = "#88888880", size = 1, bins = 30)
+#'   geom_histogram(colour = "white", fill = "#88888880", linewidth = 1, bins = 30)
 #'
 #' means <- (8:1)^3
 #' sds <- 10*(8:1)
@@ -36,7 +42,7 @@
 #'
 #' p2 <- ggplot(d, aes(x, y)) +
 #'   geom_boxplot(colour = "white", fill = "#5495CF80", outlier.colour = NA) +
-#'   geom_point(shape = 21, colour = "white", fill = "#5495CF80", size = 1,
+#'   geom_point(shape = 21, colour = "white", fill = "#5495CF80", linewidth = 1,
 #'              position = position_jitter(0.15)) +
 #'   scale_x_discrete(expand = c(0, 0.02)) + scale_y_continuous(expand = c(0.02, 0)) +
 #'   theme_void() +

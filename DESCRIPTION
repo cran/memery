@@ -1,6 +1,7 @@
 Package: memery
-Version: 0.5.7
 Title: Internet Memes for Data Analysts
+Version: 0.6.0
+Authors@R: person("Matthew", "Leonawicz", email = "rpkgs@pm.me", role = c("aut", "cre"))
 Description: Generates internet memes that optionally include a superimposed inset plot and other atypical features, 
     combining the visual impact of an attention-grabbing meme with graphic results of data analysis.
     The package differs from related packages that focus on imitating and reproducing standard memes.
@@ -19,20 +20,19 @@ Description: Generates internet memes that optionally include a superimposed ins
     Graph templates also permit additional template-specific customization.
     Animated gif support is provided but this is optional and functional only if the 'magick' package is installed. 
     'magick' is not required unless gif functionality is desired.
-Authors@R: person("Matthew", "Leonawicz", email = "mfleonawicz@gmail.com", role = c("aut", "cre"))
 License: MIT + file LICENSE
-Encoding: UTF-8
-ByteCompile: true
 URL: https://github.com/leonawicz/memery
 BugReports: https://github.com/leonawicz/memery/issues
-Suggests: testthat, knitr, rmarkdown, magick, gifski
 Depends: showtext
 Imports: sysfonts, grid, png, jpeg, Cairo, ggplot2, cowplot, magrittr,
         purrr, shiny, shinycssloaders, shinyBS, colourpicker
-RoxygenNote: 7.2.3
+Suggests: testthat, knitr, rmarkdown, magick, gifski
+ByteCompile: true
+Encoding: UTF-8
+RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2023-09-10 04:13:19 UTC; Matt
+Packaged: 2024-09-11 22:01:39 UTC; Matt
 Author: Matthew Leonawicz [aut, cre]
-Maintainer: Matthew Leonawicz <mfleonawicz@gmail.com>
+Maintainer: Matthew Leonawicz <rpkgs@pm.me>
 Repository: CRAN
-Date/Publication: 2023-09-10 04:30:03 UTC
+Date/Publication: 2024-09-11 22:52:36 UTC
